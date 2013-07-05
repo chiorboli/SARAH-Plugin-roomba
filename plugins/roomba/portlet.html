@@ -1,0 +1,19 @@
+<% stylesheet('assets/'+key+'/portlet.css') %>
+<% 
+  var myRoomba = SARAH.ConfigManager.getModule(key); 
+  var status  = myRoomba.status(SARAH.ConfigManager.getConfig()); 
+%>
+
+<div class="logo">
+  <a href="sarah/roomba" class="ajax"><img src="/assets/roomba/images/roomba_logo.png"></a>
+</div>
+<div class="text">
+  <br/><span class="title">Roomba</span>
+  <% if (status && status.isAlive !== 'dead') { %>
+  <br/>Connexion : <span class="status"><img src="/assets/roomba/images/<%= status.isAlive %>.png" title="connexion etablie"></span>
+  <br/>Charge : <span class="status"><img src="/assets/roomba/images/<%= status.chargeValueImage %>" title="<%= status.chargeValue %> / <%= status.chargeState %>"></span>
+  <br/>Propreté : <span class="status"><img src="/assets/roomba/images/<%= status.dirtLeft %>" title="a gauche"> - <img src="/assets/roomba/images/<%= status.dirtRight %>" title="a droite"></span>
+  <% } else { %>
+  <br/>Connexion : <span class="status"><img src="/assets/roomba/images/dead.png" title="connexion refusee"></span>  
+  <% } %>
+</div>

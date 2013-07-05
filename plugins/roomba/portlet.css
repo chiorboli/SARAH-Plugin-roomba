@@ -1,0 +1,35 @@
+
+.plugin-gridster.roomba .logo,
+.plugin-gridster.roomba .text {
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.plugin-gridster.roomba .logo {
+  background: #33A3EC;
+  left: 0; width: 35%; 
+}
+
+.plugin-gridster.roomba .logo .ajax {
+  display: block;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.plugin-gridster.roomba .text {
+  background: #FFFFFF;
+  right: 0; width: 65%; 
+  text-align: left;
+}
+.plugin-gridster.roomba .text .title {
+  font-size: 25px; line-height: 28px;
+  font-weight: bold;
+}
+.plugin-gridster.roomba .text .status {
+  font-size: 10px; 
+  font-weight: bold;
+}
+.plugin-gridster.roomba .text .status img {
+  vertical-align: baseline;
+}

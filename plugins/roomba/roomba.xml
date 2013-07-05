@@ -1,0 +1,15 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleroomba" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="ruleroomba" scope="public">
+    <example>Sarah passe l'aspirateur</example>
+    <tag>out.action=new Object(); </tag>
+    <item weight="2">Sarah</item>
+    <one-of>
+      <item>passe l'aspirateur<tag>out.action.button="CLEAN"</tag></item>
+      <item>range l'aspirateur<tag>out.action.button="DOCK"</tag></item>
+      <item>nettoie la zone<tag>out.action.button="SPOT"</tag></item>
+      <item>quel est l'etat de l'aspirateur<tag>out.action.button="STATUS"</tag></item>
+    </one-of>
+	
+<tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/roomba";</tag>
+  </rule>
+</grammar>

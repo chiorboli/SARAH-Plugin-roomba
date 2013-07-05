@@ -1,0 +1,9 @@
+=== version 2.1 (04/07/2013) ===
+- Correction bug affichage portlet
+
+=== version 2.0 (01/07/2013) ===
+- Mise à jour SARAH 2.9 : ajout portlet avec retour d'état 
+- Implémentation commande retour d'état
+
+=== version 1.0 (20/06/2013) ===
+- Implémentation des commandes CLEAN, DOCK et SPOT
