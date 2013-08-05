@@ -2,7 +2,7 @@
   "modules": { 
     "roomba": {
       "description": "Pilote les aspirateurs Roomba munis d'une carte Roowifi",
-      "version": "2.1",
+      "version": "2.2",
       "ip_roomba" : "[FIX ME]",
       "admin" : "[FIX ME]",
       "password" : "[FIX ME]"

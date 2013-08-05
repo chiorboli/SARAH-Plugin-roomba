@@ -7,14 +7,24 @@ exports.init = function (SARAH){
 exports.action = function(data, callback, config, SARAH) {
   
 	var url="";
+  var adminLogin="";
+  var adminPwd="";
   var rawConfig = config;
 	config = config.modules.roomba;
-	
+
 	if (!config.ip_roomba) {
 	  console.log("Missing Roomba configuration");
 	  callback({'tts': "Roomba n'est pas configuré"});
 	  return;
 	}
+	if (config.admin) {
+	  adminLogin = config.admin;
+	}
+	if (config.password) {
+	  adminPwd = config.password;
+	}
+  var auth = 'Basic ' + new Buffer(adminLogin + ':' + adminPwd).toString('base64');
+ 
 	if (data.button == "STATUS") {
      // Roomba status
      status(rawConfig);
@@ -32,30 +42,43 @@ exports.action = function(data, callback, config, SARAH) {
     
   	// Send Request
   	var request = require('request');
-  	request({ 'uri' : url }, function (err, response, body){
-  	
-  		if (err || response.statusCode != 200) {
-  			callback({'tts': "L'action a échoué"});
-  			return;
-  		}
-  		
-  		console.log(body);
-  		
-  		// Callback with TTS
-  		callback({'tts': "ok, c'est parti !"});
-  	});
-  }
+    request({
+              url : url,
+              headers : {
+                  "Authorization" : auth
+              }
+          }, function (err, response, body){
+      	
+      		if (err || response.statusCode != 200) {
+      			callback({'tts': "L'action a échoué"});
+      			return;
+      		}
+      		
+      		console.log(body);
+      		
+      		// Callback with TTS
+      		callback({'tts': "ok, c'est parti !"});
+      	});  
+   }
 }
 
 var status  = function(config){ 
   var url="";
+  var adminLogin="";
+  var adminPwd="";
 	config = config.modules.roomba;
  
 	if (!config.ip_roomba) {
 	  status.isAlive={'isAlive' : 'dead'};
     return status;
 	}
-	
+	if (config.admin) {
+	  adminLogin = config.admin;
+	}
+	if (config.password) {
+	  adminPwd = config.password;
+	}
+  	
 	url = 'http://' + config.ip_roomba + '/roomba.json';
  
   roombaStatusCheck(
@@ -90,22 +113,29 @@ var status  = function(config){
         }
 
         return;
-     }, url);
+     }, url, adminLogin, adminPwd);
         return roombaStatus;
 }
 
 exports.status  = status;
 
-function roombaStatusCheck(callback, url) {
+function roombaStatusCheck(callback, url, adminLogin, adminPwd) {
   var request = require('request');
-  request({ 'uri' : url }, function (err, response, body){
+  var auth = 'Basic ' + new Buffer(adminLogin + ':' + adminPwd).toString('base64')
 
-  	if (err || response.statusCode != 200) {
-  		callback('error');
-  		return;
-  	}
-  	callback(body);
-  });
+    request({
+          url : url,
+          headers : {
+              "Authorization" : auth
+          }
+      }, function (err, response, body){
+  
+    	if (err || response.statusCode != 200) {
+    		callback('error');
+    		return;
+    	}
+    	callback(body);
+    });
 }
                
 function getDirtStatus(value) {
